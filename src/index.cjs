@@ -5,13 +5,23 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-//TODO - endpoints
+var addresses = []
+
+// endpoints
 app.get('/hello', (req, res) => {
     return res.status(200).json({ message: 'Szeevasz!'})
 })
 
-const port = 3333;
-var actualPort = process.env.PORT || port;
+app.post('/geolocation', (req, res)=>{
+  const {latitude, longitude} = req.body
+  console.log({latitude, longitude})
+  addresses.push({latitude, longitude})
+
+  return res.status(201).json('ok')
+})
+
+const port = 3333
+var actualPort = process.env.PORT || port
 app.listen(actualPort, (err) => {
   console.log('Backend is running on port ', actualPort)
 })
